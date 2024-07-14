@@ -144,7 +144,14 @@ int main() {
     }
 
     if (soal == 2) {
-        return payroll();
+        int menu;
+        std::cout << "Masukan perhitungan gaji yang diinginkan (Input 1 / Input 2): ";
+        std::cin >> menu;
+        if (menu == 1) {
+            return payroll();
+        } else {
+            return payrollWithOvertime();
+        }
     }
 
     std::cout << "Hanya bisa pilih 1 atau 2 ";
