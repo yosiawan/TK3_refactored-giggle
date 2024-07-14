@@ -112,9 +112,9 @@ int payrollWithOvertime(){
     string nomorInduk;
     bool ditemukan = false;
     int jamLembur;
-    std::cout << "NIP: ";
+    std::cout << "NIP = ";
     std::cin >> nomorInduk;
-    std::cout << "Lembur: ";
+    std::cout << "Lembur = ";
     std::cin >> jamLembur;
     
     for (const Pegawai& pegawai : dataPegawai) {
@@ -125,7 +125,7 @@ int payrollWithOvertime(){
             std::cout << "Nip = " << pegawai.nomorInduk << endl;
             std::cout << "Golongan = " << pegawai.golongan << endl;
             std::cout << "Lembur = " << jamLembur << endl;
-            std::cout << "Total Gaji Bulan ini: Rp " << totalGaji << endl;
+            std::cout << "Total Gaji Bulan ini = Rp " << totalGaji << endl;
             ditemukan = true;
             break;
         }
