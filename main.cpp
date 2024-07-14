@@ -109,9 +109,10 @@ int payroll() {
 }
 
 int payrollWithOvertime(){
-    string nomorInduk, golongan;
+    string nomorInduk;
+    bool ditemukan = false;
     int jamLembur;
-    std::cout << "Nomor Induk Pegawai: ";
+    std::cout << "NIP: ";
     std::cin >> nomorInduk;
     std::cout << "Lembur: ";
     std::cin >> jamLembur;
@@ -120,15 +121,17 @@ int payrollWithOvertime(){
         if (pegawai.nomorInduk == nomorInduk) {
             int gajiLembur = calculateOvertime(pegawai.golongan, jamLembur);
             int totalGaji = gajiLembur + calculateSalary(pegawai.golongan);
-            std::cout << "Gaji Bulanan dan Lembur";
-            std::cout << "Nip = " << pegawai.nomorInduk;
-            std::cout << "Golongan = " << pegawai.golongan;
-            std::cout << "Lembur = " << jamLembur;
-            std::cout << "Total Gaji Bulan ini: Rp " << totalGaji;
-            return 0;
-        }else{
-            cout << "Data pegawai tidak ditemukan.\n";
+            std::cout << "\nGaji Bulanan dan Lembur" << endl;
+            std::cout << "Nip = " << pegawai.nomorInduk << endl;
+            std::cout << "Golongan = " << pegawai.golongan << endl;
+            std::cout << "Lembur = " << jamLembur << endl;
+            std::cout << "Total Gaji Bulan ini: Rp " << totalGaji << endl;
+            ditemukan = true;
+            break;
         }
+    }
+    if(!ditemukan){
+        std::cout << "Data pegawai tidak ditemukan.\n";
     }
     return 0;
 }
@@ -145,13 +148,29 @@ int main() {
 
     if (soal == 2) {
         int menu;
-        std::cout << "Masukan perhitungan gaji yang diinginkan (Input 1 / Input 2): ";
+        do {
+        std::cout << "\nMenu:\n";
+        std::cout << "1. Tambah Data Pegawai dan Hitung Gaji\n";
+        std::cout << "2. Hitung Total Gaji dan Lembur\n";
+        std::cout << "0. Keluar\n";
+        std::cout << "Pilih menu: ";
         std::cin >> menu;
-        if (menu == 1) {
-            return payroll();
-        } else {
-            return payrollWithOvertime();
+
+        switch (menu) {
+            case 1:
+                payroll();
+                break;
+            case 2:
+                payrollWithOvertime();
+                break;
+            case 0:
+                std::cout << "Keluar dari program.\n";
+                break;
+            default:
+                std::cout << "Menu tidak valid.\n";
         }
+        } while (menu != 0);
+        return 0;
     }
 
     std::cout << "Hanya bisa pilih 1 atau 2 ";
