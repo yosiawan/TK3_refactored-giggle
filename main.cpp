@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
+#include <vector>
 
 using namespace std;
 
@@ -15,13 +16,27 @@ struct Pegawai
     float gaji;
 };
 
+vector<Pegawai> dataPegawai;
+
 float calculateSalary(const string& golongan) {
     if (golongan == "D1") {
         return 2500000;
     }else if(golongan == "D2") {
-        return 200000;
+        return 2000000;
     }else if(golongan == "D3") {
         return 1500000;
+    }else {
+        return 0;
+    }
+}
+
+float calculateOvertime(const string& golongan, const int& jamLembur) {
+    if (golongan == "D1") {
+        return 10000 * jamLembur;
+    }else if(golongan == "D2") {
+        return 5000 * jamLembur;
+    }else if(golongan == "D3") {
+        return 2500 * jamLembur;
     }else {
         return 0;
     }
@@ -86,6 +101,34 @@ int payroll() {
         cout << "Golongan = " << pegawai.golongan << endl;
         cout << fixed << setprecision(0);
         cout << "Gaji = Rp" << pegawai.gaji << endl;
+
+        dataPegawai.push_back(pegawai);
+        cout << "Data pegawai berhasil ditambahkan.\n";
+    }
+    return 0;
+}
+
+int payrollWithOvertime(){
+    string nomorInduk, golongan;
+    int jamLembur;
+    std::cout << "Nomor Induk Pegawai: ";
+    std::cin >> nomorInduk;
+    std::cout << "Lembur: ";
+    std::cin >> jamLembur;
+    
+    for (const Pegawai& pegawai : dataPegawai) {
+        if (pegawai.nomorInduk == nomorInduk) {
+            int gajiLembur = calculateOvertime(pegawai.golongan, jamLembur);
+            int totalGaji = gajiLembur + calculateSalary(pegawai.golongan);
+            std::cout << "Gaji Bulanan dan Lembur";
+            std::cout << "Nip = " << pegawai.nomorInduk;
+            std::cout << "Golongan = " << pegawai.golongan;
+            std::cout << "Lembur = " << jamLembur;
+            std::cout << "Total Gaji Bulan ini: Rp " << totalGaji;
+            return 0;
+        }else{
+            cout << "Data pegawai tidak ditemukan.\n";
+        }
     }
     return 0;
 }
